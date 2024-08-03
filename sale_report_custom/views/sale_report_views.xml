@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_sale_report_custom_tree" model="ir.ui.view">
+            <field name="name">sale.report.custom.tree</field>
+            <field name="model">sale.report.custom</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="product_name"/>
+                    <field name="product_internal_reference"/>
+                    <field name="product_category"/>
+                    <field name="sale_order_number"/>
+                    <field name="transfer_number"/>
+                    <field name="invoice_number"/>
+                    <field name="sale_type"/>
+                    <field name="quantity"/>
+                    <field name="price"/>
+                    <field name="discount"/>
+                    <field name="discount_amount"/>
+                    <field name="price_subtotal"/>
+                    <field name="payment_terms"/>
+                    <field name="payment_date"/>
+                    <field name="invoice_payment_status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_sale_report_custom_search" model="ir.ui.view">
+            <field name="name">sale.report.custom.search</field>
+            <field name="model">sale.report.custom</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="product_name"/>
+                    <field name="product_internal_reference"/>
+                    <field name="product_category"/>
+                    <field name="sale_order_number"/>
+                    <field name="transfer_number"/>
+                    <field name="invoice_number"/>
+
+                    <separator/>
+                    <!-- Group by -->
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_product_name" string="Product Name" context="{'group_by':'product_name'}"/>
+                        <filter name="group_by_product_internal_reference" string="Product Internal Reference" context="{'group_by':'product_internal_reference'}"/>
+                        <filter name="group_by_product_category" string="Product Category" context="{'group_by':'product_category'}"/>
+                        <filter name="group_by_sale_order_number" string="Sale Order Number" context="{'group_by':'sale_order_number'}"/>
+                        <filter name="group_by_transfer_number" string="Transfer Number" context="{'group_by':'transfer_number'}"/>
+                        <filter name="group_by_invoice_number" string="Invoice Number" context="{'group_by':'invoice_number'}"/>
+                        <filter name="group_by_invoice_payment_status" string="Invoice Payment Status" context="{'group_by':'invoice_payment_status'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_sale_report_custom_pivot" model="ir.ui.view">
+            <field name="name">sale.report.custom.pivot</field>
+            <field name="model">sale.report.custom</field>
+            <field name="arch" type="xml">
+                <pivot>
+                    <field name="product_name"/>
+                    <field name="quantity" type="measure"/>
+                    <field name="price" type="measure"/>
+                    <field name="discount_amount" type="measure"/>
+                    <field name="price_subtotal" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="action_sale_report_custom" model="ir.actions.act_window">
+            <field name="name">General Sale Report</field>
+            <field name="res_model">sale.report.custom</field>
+            <field name="view_mode">pivot,tree</field>
+        </record>
+
+        <menuitem id="menu_sale_report_custom" name="General Sale Report" parent="sale.menu_sale_report"
+                  action="action_sale_report_custom" groups="sales_team.group_sale_manager"/>
+    </data>
+</odoo>
